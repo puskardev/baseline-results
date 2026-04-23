@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ViT + GPT-2 Captioning — Baseline Demo</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    margin: 0; padding: 24px; background: #fafafa; color: #222;
+    max-width: 1400px; margin: 0 auto;
+  }
+  header { margin-bottom: 24px; }
+  h1 { margin: 0 0 6px; font-size: 24px; }
+  .subtitle { color: #666; font-size: 14px; line-height: 1.5; }
+  .subtitle code { background: #eef; padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+  .controls {
+    display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+    padding: 12px 16px; background: white; border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin: 14px 0 24px;
+  }
+  .controls label { font-size: 13px; color: #555; }
+  .controls select {
+    margin-left: 6px; padding: 5px 10px; font-size: 14px;
+    border: 1px solid #ccc; border-radius: 4px; background: white; cursor: pointer;
+  }
+  section { margin-bottom: 28px; }
+  h2 { font-size: 16px; margin: 0 0 10px; color: #333; }
+  h2 .meta { font-weight: 400; color: #888; font-size: 13px; margin-left: 10px; }
+  table {
+    border-collapse: collapse; background: white; border-radius: 8px;
+    overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-size: 13px;
+    min-width: 100%;
+  }
+  th, td { padding: 10px 16px; text-align: left; border-bottom: 1px solid #eee; }
+  th { background: #f4f4f4; font-weight: 600; color: #555; }
+  tr:last-child td { border-bottom: none; }
+  .bleu { font-weight: 600; color: #2563eb; }
+  .gallery {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: white; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); display: flex; flex-direction: column;
+  }
+  .card img {
+    width: 100%; aspect-ratio: 4/3; object-fit: cover;
+    background: #eee; display: block;
+  }
+  .card-body { padding: 12px 14px; font-size: 13px; }
+  .generated {
+    font-weight: 500; color: #111; margin-bottom: 8px; line-height: 1.4;
+  }
+  .gen-label {
+    display: inline-block; background: #2563eb; color: white;
+    padding: 1px 6px; border-radius: 3px; font-size: 10px;
+    text-transform: uppercase; margin-right: 6px; vertical-align: middle;
+  }
+  details { font-size: 12px; color: #666; margin-top: 4px; }
+  details summary { cursor: pointer; color: #2563eb; }
+  details ul { margin: 6px 0 0 0; padding-left: 18px; }
+  details li { margin-bottom: 3px; line-height: 1.4; }
+  .image-id { color: #888; font-size: 11px; font-family: monospace; margin-bottom: 4px; }
+  .empty { padding: 40px; text-align: center; color: #888; background: white; border-radius: 8px; }
+  footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #eee;
+           color: #888; font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ViT + GPT-2 Captioning — Baseline Results</h1>
+  <div class="subtitle">
+    CS 7643 · <strong>Multimodal Minds</strong> · Experiment A
+    (<code>baseline_frozen</code>): only the cross-attention bridge trains;
+    ViT encoder and GPT-2 decoder stay fully frozen. 5000 train images, 3 epochs.
+  </div>
+</header>
+
+<section id="metrics"></section>
+
+<div class="controls">
+  <label>Gallery:
+    <select id="source">
+      <option value="qualitative_greedy.json">Qualitative · greedy (30 val images)</option>
+      <option value="val_generations_greedy.json">Metric · greedy</option>
+      <option value="val_generations_beam3.json">Metric · beam=3</option>
+      <option value="val_generations_beam5.json">Metric · beam=5</option>
+      <option value="val_generations_beam5_lp.json">Metric · beam=5, length_penalty=1.2</option>
+    </select>
+  </label>
+  <span class="meta" id="gallery-meta" style="color:#888;font-size:13px;"></span>
+</div>
+
+<section>
+  <div class="gallery" id="gallery"></div>
+</section>
+
+<footer>
+  Model · ViT-base (<code>google/vit-base-patch16-224-in21k</code>) +
+  GPT-2 · dataset: MS COCO 2014 · trained on MPS
+</footer>
+
+<script>
+async function loadCSV(url) {
+  const r = await fetch(url);
+  if (!r.ok) return [];
+  const lines = (await r.text()).trim().split('\n');
+  const h = lines[0].split(',');
+  return lines.slice(1).map(line => {
+    const v = line.split(',');
+    return Object.fromEntries(h.map((k, i) => [k, v[i]]));
+  });
+}
+
+async function loadJSON(url) {
+  const r = await fetch(url);
+  return r.ok ? r.json() : null;
+}
+
+function imageUrl(id) {
+  return `images/COCO_val2014_${String(id).padStart(12, '0')}.jpg`;
+}
+
+function renderMetrics(rows) {
+  const $m = document.getElementById('metrics');
+  if (!rows.length) {
+    $m.innerHTML = '<div class="empty">No eval metrics found.</div>';
+    return;
+  }
+  const cols = ['decoding_tag', 'num_beams', 'length_penalty', 'n_images', 'bleu4', 'cider'];
+  $m.innerHTML = `
+    <h2>Decoding ablation <span class="meta">4 strategies on the same best.pt checkpoint</span></h2>
+    <table>
+      <thead><tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr></thead>
+      <tbody>${rows.map(r => `<tr>${cols.map(c =>
+        `<td class="${c === 'bleu4' ? 'bleu' : ''}">${r[c] || '—'}</td>`
+      ).join('')}</tr>`).join('')}</tbody>
+    </table>`;
+}
+
+function renderGallery(data) {
+  const $g = document.getElementById('gallery');
+  const $meta = document.getElementById('gallery-meta');
+  if (!data || !data.generations) {
+    $g.innerHTML = '<div class="empty">No caption data.</div>';
+    $meta.textContent = '';
+    return;
+  }
+  const d = data.decoding || {};
+  const parts = [`${data.generations.length} images`];
+  if (d.tag) parts.push(`tag=${d.tag}`);
+  if (d.num_beams) parts.push(`beams=${d.num_beams}`);
+  if (d.length_penalty) parts.push(`length_penalty=${d.length_penalty}`);
+  $meta.textContent = parts.join(' · ');
+
+  $g.innerHTML = data.generations.map(g => `
+    <article class="card">
+      <img src="${imageUrl(g.image_id)}" loading="lazy" alt="image ${g.image_id}"
+           onerror="this.style.background='#fcc';this.alt='missing: ${g.image_id}'">
+      <div class="card-body">
+        <div class="image-id">image_id ${g.image_id}</div>
+        <div class="generated"><span class="gen-label">gen</span>${g.generated}</div>
+        <details><summary>${g.references.length} human references</summary>
+          <ul>${g.references.map(r => `<li>${r}</li>`).join('')}</ul>
+        </details>
+      </div>
+    </article>`).join('');
+}
+
+async function loadGallery(file) {
+  renderGallery(await loadJSON(`data/${file}`));
+}
+
+async function init() {
+  renderMetrics(await loadCSV('data/eval_metrics.csv'));
+  const $src = document.getElementById('source');
+  $src.onchange = () => loadGallery($src.value);
+  await loadGallery($src.value);
+}
+
+init();
+</script>
+</body>
+</html>

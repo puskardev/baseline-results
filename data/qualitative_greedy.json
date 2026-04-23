@@ -1,0 +1,355 @@
+{
+  "exp_name": "baseline_frozen",
+  "ckpt": "best",
+  "ckpt_meta": {
+    "epoch": 3,
+    "val_loss": 2.371126446723938,
+    "mode": "baseline_frozen"
+  },
+  "split": "qualitative",
+  "decoding": {
+    "tag": "greedy",
+    "num_beams": 1,
+    "length_penalty": 1.0,
+    "max_length": 40
+  },
+  "bleu4": null,
+  "cider": null,
+  "metrics": {
+    "bleu4": null,
+    "cider": null
+  },
+  "n_images": 30,
+  "generations": [
+    {
+      "image_id": 2985,
+      "generated": "A group of cows grazing on a road.",
+      "references": [
+        "The truck driver hauls an elephant down the highway.",
+        "A large elephant riding on the back of a truck on a busy street.",
+        "An elephant is being transported in a truck down a road.",
+        "A truck carrying an elephant in the back",
+        "An elephant being transported down the road on the back of a truck."
+      ]
+    },
+    {
+      "image_id": 41488,
+      "generated": "A sign with a picture of a street sign.",
+      "references": [
+        "The road sign says \"East 278 Queens Bronx\"",
+        "A highway road sign directing the way ahead.",
+        "A large and green interstate exit sign above a road.",
+        "A green road sign showing the Queens Bronx exit.",
+        "An green and white overhead street sign on Interstate 278 for Queens and Bronx, showing a truck restriction."
+      ]
+    },
+    {
+      "image_id": 44151,
+      "generated": "A bench sitting on a sidewalk.",
+      "references": [
+        "A bottle of water sits on an empty bench.",
+        "A bottle sitting on a green park bench.",
+        "a green bench on the sidewalk with a blue bottle on top",
+        "two containers sitting resting on a green wooden bench",
+        "A bottle of water is sitting on a green bench."
+      ]
+    },
+    {
+      "image_id": 58350,
+      "generated": "A woman is eating a pizza.",
+      "references": [
+        "a young woman with a slice of pizza in her mouth",
+        "A young woman is holding a slice of pizza with her mouth.",
+        "A woman with a slice of pizza in her mouth next to another woman.",
+        "a woman holding onto a piece of pizza with her mouth",
+        "A young woman poses comically with a piece of pizza in her mouth."
+      ]
+    },
+    {
+      "image_id": 121152,
+      "generated": "A bus is parked in front of a building.",
+      "references": [
+        "A red and white bus parked under an over pass.",
+        "A long bus is stopped next to a blue bridge.",
+        "A bus going under a blue steel bridge.",
+        "A large white bus driving under a blue bridge",
+        "A red and white bus sits below a blue overpass."
+      ]
+    },
+    {
+      "image_id": 123136,
+      "generated": "A kitchen with a large table and a large sink.",
+      "references": [
+        "A kitchen sink and part of a stove with a doorway leading into an adjacent room",
+        "A kitchen with wood floors and  green counter tops.",
+        "This cabin has a kitchen that features wood and stone.",
+        "View of a narrow kitchen looking thru to another room.",
+        "Small orange tiled kitchenette in wood and stone structure."
+      ]
+    },
+    {
+      "image_id": 127984,
+      "generated": "A large building with a large sign on it.",
+      "references": [
+        "A tall building with set  of two entrances.",
+        "A grand entrance to the Pennsylvania Railroad station",
+        "A man walking past the decorative front of a train station.",
+        "The Pennsylvania Railroad Suburban Station is black with gilded fixtures.",
+        "This is the front of the Pennsylvania Railroad Suburban station."
+      ]
+    },
+    {
+      "image_id": 134555,
+      "generated": "A group of elephants standing next to a fence.",
+      "references": [
+        "An elephant in the zoo behind a large fence",
+        "An elephant inside a wire fence with people on the other side.",
+        "A man stands next to a very large elephant.",
+        "A captive elephant warily eyes the people watching her.",
+        "An elephant is standing next to a wire fence."
+      ]
+    },
+    {
+      "image_id": 159402,
+      "generated": "A man and woman are sitting on a train.",
+      "references": [
+        "Several people helping to load luggage onto a train.",
+        "Several people loading baggage into the open side door of a train.",
+        "people putting their suitcases onto a train car",
+        "A man helping a woman load her luggage, while people stand by.",
+        "Four people unloading and loading from a train"
+      ]
+    },
+    {
+      "image_id": 170173,
+      "generated": "A man riding a horse on a beach.",
+      "references": [
+        "Two people ride on horses past a shallow stream.",
+        "Two people that are on a horse by a lake.",
+        "Two people ride horses on a trail by a river.",
+        "WOMAN AND POLICEMAN BOTH RIDING A HORSE ALONG THE RIVER BANK",
+        "Two mounted riders guide their horses along a trail near a mountain lake."
+      ]
+    },
+    {
+      "image_id": 179727,
+      "generated": "A tennis player is hitting a ball.",
+      "references": [
+        "A woman in tennis whites is facing forward and clasping a racquet on a tennis court,  while a man in street clothes is standing at the back of the court, looking off to the side.",
+        "a tennis player with a racket on the field",
+        "A tennis player is on a tennis court and is getting ready to hit the ball with her racquet.",
+        "Woman prepares to be served to in a tennis match.",
+        "a woman holding a tennis racket gets ready to return the serve"
+      ]
+    },
+    {
+      "image_id": 209221,
+      "generated": "A train is parked in the train tracks.",
+      "references": [
+        "A train pulling out of a train station next to train tracks.",
+        "a train pulled up to an empty train station",
+        "Freightliner train passing passenger pickup area with no on at station.",
+        "A freight liner train heads down a train track.",
+        "A yellow train pulling into the train station"
+      ]
+    },
+    {
+      "image_id": 217153,
+      "generated": "A group of people are standing in front of a large display of weapons.",
+      "references": [
+        "a number of people in uniform using cell phones",
+        "two military members looking at their cell phones",
+        "A group of people standing in a room.",
+        "Military officers check their electronic devices in a conference room.",
+        "Uniformed people are using their cell phones in a crowded room."
+      ]
+    },
+    {
+      "image_id": 220118,
+      "generated": "A dog is sitting on a beach with a dog.",
+      "references": [
+        "A dog is shown sitting on rocks by the beach.",
+        "A dog sitting on a rocky shore in front of some cliffs.",
+        "A border collie sitting on the rocks surrounding a lake on a beautiful sunny day.",
+        "A dog sitting on a rock area at water's edge of a lake.",
+        "A dog with perked ears sitting on a rocky beach next to a body of water."
+      ]
+    },
+    {
+      "image_id": 233848,
+      "generated": "A group of people are standing in the grass.",
+      "references": [
+        "A man in a field works to get a kite off the ground.",
+        "It's a chilly morning here in the village.",
+        "A person flying a kite in a field, with a windmill and church in the background among other buildings.",
+        "A kite on a field in the country.",
+        "An open field with a kite and a person in the background."
+      ]
+    },
+    {
+      "image_id": 238806,
+      "generated": "A pizza with a pizza on it.",
+      "references": [
+        "A very large cheesy pizza sitting on top of a rack.",
+        "A large pizza with spinach and tomato toppings.",
+        "there is a pizza on a metal grill that is half eaten",
+        "A partially eaten pizza with multiple toppings on it.",
+        "A pizza sitting on a barbecue rack on a table"
+      ]
+    },
+    {
+      "image_id": 280515,
+      "generated": "A group of elephants standing on top of a dirt road.",
+      "references": [
+        "Two elephants that are drinking out of a watering hole.",
+        "there is a elephant drinking water and a baby elephant on the other side",
+        "Two large elephants drink water from a shallow body of water",
+        "Two elephants in a muddy area staring at each other.",
+        "Two elephants are walking towards the water puddles."
+      ]
+    },
+    {
+      "image_id": 296032,
+      "generated": "A cat is sitting on a table.",
+      "references": [
+        "A cat sits on a window sill behind the blinds.",
+        "A cat sits between a window and a blind.",
+        "A cat sitting in a window in front of an open set of blinds.",
+        "A cat peering out of the window on the between the blinds and the window",
+        "A cat sitting between a window and blinds."
+      ]
+    },
+    {
+      "image_id": 350488,
+      "generated": "A zebra standing in the middle of a grassy field.",
+      "references": [
+        "A zebra grazing on grass near a river.",
+        "A single zebra grazes on a ledge near the water,",
+        "A zebra standing on land and eating grass near a body of water that is behind it.",
+        "A zebra grazes on tall grass at the edge of a clear blue river.",
+        "A zebra near a waterhole grazing on some grass."
+      ]
+    },
+    {
+      "image_id": 360504,
+      "generated": "A group of people standing in a grassy area with a picnic table.",
+      "references": [
+        "The clear pool stood empty as people stood around nearby.",
+        "some people walking around a swimming pool and trees",
+        "Large swimming pool with tents near the trees.",
+        "a large in ground swimming pool near tents",
+        "A pool with several visitors sitting beside it."
+      ]
+    },
+    {
+      "image_id": 384476,
+      "generated": "A kite flying in the sky.",
+      "references": [
+        "A kite being flown in the blue sky.",
+        "A multiple colored kite being flown in the air.",
+        "There is a colorful kite flying high in the sky.",
+        "A rainbow colored kite in a partly cloudy sky.",
+        "A kite is shown in the sky with the clouds."
+      ]
+    },
+    {
+      "image_id": 387098,
+      "generated": "A laptop with a keyboard and mouse on it.",
+      "references": [
+        "a computer desk with a laptop another monitor with a keyboard and mouse",
+        "Three different computer monitors are cluttered on one desk.",
+        "a computer desk with monitors and other electronics covering it",
+        "Three monitors sit on a small and mess covered desk.",
+        "A desk area with several computer screens and coffee mugs."
+      ]
+    },
+    {
+      "image_id": 395849,
+      "generated": "A small jet is flying in the air.",
+      "references": [
+        "A row of United States Army military fighter jets.",
+        "An old World War II plan has been refurbished and modernized",
+        "a fighter jet sits parked next to another plane",
+        "a large airplane that is sitting on a runway",
+        "An army airplane parked at the airport beside another airplane"
+      ]
+    },
+    {
+      "image_id": 406616,
+      "generated": "A knife is on a table with a bunch of vegetables.",
+      "references": [
+        "A wooden cutting board topped with veggies and a knife.",
+        "A cutting board with apple slices and carrots",
+        "There is a cutting board and knife with chopped apples and carrots.",
+        "A cutting board with chopped carrots and apples.",
+        "The carrots and apple have been sliced on the cutting board."
+      ]
+    },
+    {
+      "image_id": 446058,
+      "generated": "A man wearing a hat and glasses is standing next to a building.",
+      "references": [
+        "A balding man with glasses, standing near a bridge.",
+        "A man holding an object in his left hand on top of a bridge.",
+        "A man poses for a photo in front of the bridge.",
+        "A man with glasses standing with a cell phone in his hand on a bridge",
+        "a male in a black shirt a cellphone and a bridge"
+      ]
+    },
+    {
+      "image_id": 472828,
+      "generated": "A group of people are eating at a restaurant.",
+      "references": [
+        "A man selling oranges and juice to a bunch of people.",
+        "a bunch of people stand in front of a fruit vendor",
+        "Several people standing at a stall piled high with oranges with a man standing behind a counter serving drinks",
+        "a group of girls are standing around in front of oranges",
+        "A group of people are gathered at the orange stand"
+      ]
+    },
+    {
+      "image_id": 500844,
+      "generated": "A group of people standing in the grass.",
+      "references": [
+        "A large number of people standing together in a field",
+        "The youths are gathered in the park, some holding frisbees.",
+        "A group of young people are discussing disc golf.",
+        "A girl in a group of others has made herself a frisbee hat.",
+        "A group of people in the park with a boy holding a frisbee."
+      ]
+    },
+    {
+      "image_id": 546702,
+      "generated": "A cat laying on a bed with a blanket.",
+      "references": [
+        "A fat gray tiger cat laying on top of  bed up against a pillow.",
+        "A cat sits on a white bed with sheets and pillows.",
+        "A cat spreads it's legs in the middle of a bed.",
+        "A cat sitting on a bed cleaning itself",
+        "A cat propped up with pillows sitting on a bed."
+      ]
+    },
+    {
+      "image_id": 554523,
+      "generated": "A kitchen with a sink, microwave, and refrigerator.",
+      "references": [
+        "a kitchen with a refrigerator and tiled floors",
+        "A fridge in an empty kitchen with nothing on the shelves.",
+        "There is a refrigerator sitting in the kitchen.",
+        "A partial view of a kitchen primarily the refrigerator is showing",
+        "A refrigerator sits in the corner of the kitchen."
+      ]
+    },
+    {
+      "image_id": 566012,
+      "generated": "A table with a table and chairs.",
+      "references": [
+        "A dinner table next to a fire place topped with a vase full of flowers.",
+        "A sunny dining room features a yellow wall and a black fireplace with a chair as the focal point.",
+        "A room with a long dining table and a variety of chairs.",
+        "A table and chairs fill the room in an apartment.",
+        "A dining room, with a dinner table and several other chairs in it."
+      ]
+    }
+  ]
+}
